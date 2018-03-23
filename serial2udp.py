@@ -51,11 +51,11 @@ class Proxy(object):
 
     def _udp_receiver(self):
         while True:
-            message, udp_response_ip, udp_response_port = self._sock.recvfrom(1)
+            message, udp_address = self._sock.recvfrom(1)
             self._serial_send(message)
             # 送信元情報でレスポンス先を訂正
-            self._udp_send_ip = udp_response_ip
-            self._udp_send_port = udp_response_port
+            self._udp_send_ip = udp_address[0]
+            self._udp_send_port = udp_address[1]
     
     def _udp_send(self, message):
         if self._is_started:
